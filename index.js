@@ -202,6 +202,7 @@ function setToDos(todoItems) {
 }
 
 function updateToDo() {
+  validateInput(idTxt.value);
   const items = getToDos();
   const updatedItems = items.map((item) =>
     item.id === parseInt(idTxt.value)
