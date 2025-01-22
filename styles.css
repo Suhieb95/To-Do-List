@@ -1,0 +1,45 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+}
+
+.container {
+    max-width: 1920px;
+    margin-inline: auto;
+    min-height: 100svh;
+    width: 100%;
+    padding: 15px;
+    background-color: #f1f1f1;
+}
+
+.list {
+    list-style: none;
+}
+
+.element-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex {
+    display: flex;
+}
