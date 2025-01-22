@@ -21,6 +21,16 @@
     }
 }
 
+.validation-text {
+    color: red;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 .to-do-list-body {
     max-width: 400px;
     width: 100%;
@@ -28,7 +38,7 @@
     margin-inline: auto;
     border-radius: 5px;
     height: 100%;
-    padding: 10px;
+    padding: 15px;
     min-height: 600px;
     background-color: white;
     box-shadow: rgba(99,
@@ -38,7 +48,29 @@
 
     #to-do-value {
         width: 100%;
-        margin: 10px 0;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        border-radius: 7px;
+        font-size: 16px;
+        padding: 6px;
+        padding-inline: 10px;
+        border: solid 0.5px rgb(0, 0, 0, 0.3);
+        background-color: #f9f9f9;
+        outline: none;
+
+        &::placeholder {
+            font-size: 14px;
+        }
+
+        &:focus {
+            background-color: white;
+            outline: solid 2px #f1f1f1;
+
+            &::placeholder {
+                opacity: 0;
+            }
+        }
+
     }
 
     p {
@@ -47,13 +79,86 @@
 
     .list {
         list-style: none;
+        padding: 0 1px;
     }
 
     .save-btn,
-    .update-button {
-        width: calc(100% - 50px);
+    .update-btn {
+        width: 100%;
         margin-inline: auto;
         margin-bottom: 25px;
+        padding: 6px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        outline: none;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: scale(1.03);
+        }
+    }
+
+    .to-do-item {
+        border: solid 2.5px black;
+        margin-bottom: 10px;
+        padding: 20px 0;
+        border-radius: 7px;
+    }
+
+    .btn-container {
+        margin-right: 8px;
+        margin-bottom: 15px;
+
+        button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+            transition: background-color 0.2s, border-radius 0.2s;
+
+            &:hover {
+                background-color: #f1f1f1;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    .todo-content-container {
+        align-items: start;
+        margin-left: 8px;
+
+        li {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 10px;
+            margin-top: 7px;
+            font-weight: 600;
+        }
+
+        del {
+            color: rgb(255, 0, 0);
+        }
+
+        input {
+            margin-top: 9px;
+            height: 17px;
+            width: 17px;
+
+            &:checked {
+                accent-color: black;
+            }
+
+        }
     }
 }
 

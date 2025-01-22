@@ -6,6 +6,7 @@ const saveBtn = document.querySelector(".save-btn");
 const updateBtn = document.querySelector(".update-btn");
 const taskLeft = document.getElementById("tasks-left");
 
+toDoText.focus();
 loadToDos();
 getActiveCount();
 
@@ -25,6 +26,9 @@ function getToDos() {
 }
 function addToItem(item) {
   const div = document.createElement("div");
+  const divContainer = document.createElement("div");
+  const divToDoContainer = document.createElement("div");
+  const btnDivContainer = document.createElement("div");
   const li = document.createElement("li");
   const delBtn = document.createElement("button");
   const editBtn = document.createElement("button");
@@ -35,16 +39,31 @@ function addToItem(item) {
   div.setAttribute("id", item.id);
 
   list.appendChild(div);
-  div.appendChild(checkBox);
-  div.appendChild(createdAt);
+  div.appendChild(divContainer);
+  div.appendChild(btnDivContainer);
+  divContainer.appendChild(checkBox);
+  divContainer.appendChild(divToDoContainer);
 
   div.classList.add("to-do-item");
-  div.classList.add("flex-col");
+  div.classList.add("flex-row");
   div.classList.add("element-center");
   div.classList.add("card");
+  div.classList.add("between");
 
-  delBtn.innerText = "Delete";
-  editBtn.innerText = "Edit";
+  divContainer.classList.add("flex-row");
+  divContainer.classList.add("element-center");
+  divContainer.classList.add("todo-content-container");
+
+  btnDivContainer.classList.add("flex-row");
+  btnDivContainer.classList.add("element-center");
+  btnDivContainer.classList.add("btn-container");
+
+  divToDoContainer.classList.add("flex-col");
+  divToDoContainer.classList.add("element-center");
+  divToDoContainer.classList.add("todo-content-container");
+
+  delBtn.innerText = "✖";
+  editBtn.innerText = "✎";
 
   const options = {
     timeZone: "Asia/Dubai",
@@ -63,7 +82,7 @@ function addToItem(item) {
     match.toUpperCase()
   );
 
-  createdAt.innerText = " Created At: " + formattedDateTime;
+  createdAt.innerText = "Created At: " + formattedDateTime;
 
   checkBox.name = `${item.id}`;
   checkBox.type = "checkBox";
@@ -93,9 +112,10 @@ function addToItem(item) {
     li.innerHTML = "";
     li.textContent = item.value;
   }
-  div.appendChild(li);
-  div.appendChild(delBtn);
-  div.appendChild(editBtn);
+  divToDoContainer.appendChild(li);
+  btnDivContainer.appendChild(delBtn);
+  btnDivContainer.appendChild(editBtn);
+  divToDoContainer.appendChild(createdAt);
 }
 
 function setCompletedTodo(checked, id) {
@@ -117,6 +137,7 @@ function deleteToDo(id) {
     }
   });
   getActiveCount();
+  showSaveBtn();
 }
 function editToDo(item) {
   const items = getToDos();
@@ -128,25 +149,41 @@ function editToDo(item) {
 }
 function addToDo() {
   const value = toDoText.value;
-  if (value !== "") {
-    const currentToDos = getToDos();
-    let todoItems = [];
-    const newItem = {
-      id: parseInt(Math.random() * 10000),
-      value: value,
-      completed: false,
-      createdAt: new Date().toISOString(),
-    };
-    if (currentToDos !== null) {
-      todoItems = [...currentToDos, newItem];
-    } else {
-      todoItems = [newItem];
-    }
+  validateInput(value);
+  const currentToDos = getToDos();
+  let todoItems = [];
+  const newItem = {
+    id: parseInt(Math.random() * 10000),
+    value: value,
+    completed: false,
+    createdAt: new Date().toISOString(),
+  };
+  if (currentToDos !== null) {
+    todoItems = [...currentToDos, newItem];
+  } else {
+    todoItems = [newItem];
+  }
 
-    setToDos(todoItems);
-    toDoText.value = "";
-    addToItem(newItem);
-    getActiveCount();
+  setToDos(todoItems);
+  toDoText.value = "";
+  addToItem(newItem);
+  getActiveCount();
+}
+function validateInput(value) {
+  const validationTxt = document.querySelector(".validation-text");
+  const validationText = document.createElement("span");
+  if (value === "") {
+    if (validationTxt === null) {
+      validationText.innerText = "To do value is Required!";
+      validationText.classList.add("validation-text");
+
+      toDoText.insertAdjacentElement("afterend", validationText);
+    }
+    throw new Error("Missing To do Value.");
+  } else {
+    if (validationTxt !== null) {
+      validationTxt.remove();
+    }
   }
 }
 function showUpdateBtn() {
