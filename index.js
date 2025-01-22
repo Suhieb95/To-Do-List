@@ -6,7 +6,8 @@ const saveBtn = document.querySelector(".save-btn");
 const updateBtn = document.querySelector(".update-btn");
 const taskLeft = document.getElementById("tasks-left");
 
-toDoText.focus();
+window.onload = () => toDoText.focus();
+
 loadToDos();
 getActiveCount();
 
