@@ -168,6 +168,7 @@ function addToDo() {
   toDoText.value = "";
   addToItem(newItem);
   getActiveCount();
+  toDoText.focus();
 }
 function validateInput(value) {
   const validationTxt = document.querySelector(".validation-text");
@@ -193,6 +194,7 @@ function showUpdateBtn() {
 function showSaveBtn() {
   saveBtn.style.display = "block";
   updateBtn.style.display = "none";
+  toDoText.value = "";
 }
 function setToDos(todoItems) {
   localStorage.setItem("todos", JSON.stringify(todoItems));
