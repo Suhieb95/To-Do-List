@@ -4,8 +4,10 @@ const isChecked = document.getElementById("to-do-checked");
 const list = document.querySelector(".list");
 const saveBtn = document.querySelector(".save-btn");
 const updateBtn = document.querySelector(".update-btn");
+const taskLeft = document.getElementById("tasks-left");
 
 loadToDos();
+getActiveCount();
 
 function loadToDos() {
   list.replaceChildren();
@@ -28,18 +30,40 @@ function addToItem(item) {
   const editBtn = document.createElement("button");
   const checkBox = document.createElement("input");
   const del = document.createElement("del");
+  const createdAt = document.createElement("p");
 
   div.setAttribute("id", item.id);
 
   list.appendChild(div);
   div.appendChild(checkBox);
+  div.appendChild(createdAt);
 
   div.classList.add("to-do-item");
-  div.classList.add("flex");
-  div.classList.add("flex-row");
+  div.classList.add("flex-col");
+  div.classList.add("element-center");
+  div.classList.add("card");
 
   delBtn.innerText = "Delete";
   editBtn.innerText = "Edit";
+
+  const options = {
+    timeZone: "Asia/Dubai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  };
+
+  const formatter = new Intl.DateTimeFormat("en-GB", options);
+  let formattedDateTime = formatter.format(new Date(item.createdAt));
+  formattedDateTime = formattedDateTime.replace(/(am|pm)/, (match) =>
+    match.toUpperCase()
+  );
+
+  createdAt.innerText = " Created At: " + formattedDateTime;
 
   checkBox.name = `${item.id}`;
   checkBox.type = "checkBox";
@@ -80,6 +104,7 @@ function setCompletedTodo(checked, id) {
     return item.id === id ? { ...item, completed: checked } : item;
   });
   setToDos(updatedItems);
+  getActiveCount();
 }
 function deleteToDo(id) {
   const items = getToDos();
@@ -91,6 +116,7 @@ function deleteToDo(id) {
       list.removeChild(ele);
     }
   });
+  getActiveCount();
 }
 function editToDo(item) {
   const items = getToDos();
@@ -120,6 +146,7 @@ function addToDo() {
     setToDos(todoItems);
     toDoText.value = "";
     addToItem(newItem);
+    getActiveCount();
   }
 }
 function showUpdateBtn() {
@@ -144,4 +171,10 @@ function updateToDo() {
   setToDos(updatedItems);
   showSaveBtn();
   loadToDos();
+}
+
+function getActiveCount() {
+  const items = getToDos();
+  const count = items.filter((item) => item.completed === false);
+  taskLeft.innerText = `You have ${count.length} Tasks Left!`;
 }

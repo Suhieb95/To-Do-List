@@ -15,10 +15,46 @@
     width: 100%;
     padding: 15px;
     background-color: #f1f1f1;
+
+    @media (max-width:680px) {
+        margin: 0;
+    }
 }
 
-.list {
-    list-style: none;
+.to-do-list-body {
+    max-width: 400px;
+    width: 100%;
+    margin-top: 40px;
+    margin-inline: auto;
+    border-radius: 5px;
+    height: 100%;
+    padding: 10px;
+    min-height: 600px;
+    background-color: white;
+    box-shadow: rgba(99,
+            99,
+            99,
+            0.2) 0px 4px 8px 0px;
+
+    #to-do-value {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .list {
+        list-style: none;
+    }
+
+    .save-btn,
+    .update-button {
+        width: calc(100% - 50px);
+        margin-inline: auto;
+        margin-bottom: 25px;
+    }
 }
 
 .element-center {

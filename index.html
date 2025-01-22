@@ -16,21 +16,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="element-center flex-col">
-        <h1>To Do List</h1>
+      <div class="to-do-list-body flex flex-col">
+        <h1 style="font-size: 24px">To Do List</h1>
+        <h2 style="margin-top: 14px; font-size: 16px">My Tasks</h2>
+        <h3 id="tasks-left" style="margin-top: 14px; font-size: 14px">
+          You have 0 Tasks Left!
+        </h3>
         <div class="element-center">
           <input hidden id="to-do-id" readonly type="number" />
           <input hidden id="to-do-checked" readonly type="checkbox" />
           <input id="to-do-value" type="text" />
-          <button class="save-btn" onclick="addToDo()">Add</button>
-          <button
-            style="display: none"
-            class="update-btn"
-            onclick="updateToDo()"
-          >
-            Update
-          </button>
         </div>
+        <button class="save-btn" onclick="addToDo()">Add</button>
+        <button style="display: none" class="update-btn" onclick="updateToDo()">
+          Update
+        </button>
         <ul class="list"></ul>
       </div>
     </div>
