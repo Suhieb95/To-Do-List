@@ -44,6 +44,28 @@ function addToItem(item) {
   divContainer.appendChild(checkBox);
   divContainer.appendChild(divToDoContainer);
 
+  addClassLists(div, divContainer, btnDivContainer, divToDoContainer);
+
+  delBtn.innerText = "✖";
+  editBtn.innerText = "✎";
+
+  let formattedDateTime = formatDate(item.createdAt);
+  createdAt.innerText = "Created At: " + formattedDateTime;
+
+  checkBox.name = `${item.id}`;
+  checkBox.type = "checkBox";
+  checkBox.defaultChecked = item.completed;
+
+  addEventListener(checkBox, li, delBtn, editBtn, item);
+  drawCompletionElement(item.completed, li, item);
+
+  divToDoContainer.appendChild(li);
+  btnDivContainer.appendChild(delBtn);
+  btnDivContainer.appendChild(editBtn);
+  divToDoContainer.appendChild(createdAt);
+}
+
+function addClassLists(div, divContainer, btnDivContainer, divToDoContainer) {
   div.classList.add("to-do-item");
   div.classList.add("flex-row");
   div.classList.add("element-center");
@@ -61,10 +83,9 @@ function addToItem(item) {
   divToDoContainer.classList.add("flex-col");
   divToDoContainer.classList.add("element-center");
   divToDoContainer.classList.add("todo-content-container");
+}
 
-  delBtn.innerText = "✖";
-  editBtn.innerText = "✎";
-
+function formatDate(item) {
   const options = {
     timeZone: "Asia/Dubai",
     year: "numeric",
@@ -77,24 +98,11 @@ function addToItem(item) {
   };
 
   const formatter = new Intl.DateTimeFormat("en-GB", options);
-  let formattedDateTime = formatter.format(new Date(item.createdAt));
+  let formattedDateTime = formatter.format(new Date(item));
   formattedDateTime = formattedDateTime.replace(/(am|pm)/, (match) =>
     match.toUpperCase()
   );
-
-  createdAt.innerText = "Created At: " + formattedDateTime;
-
-  checkBox.name = `${item.id}`;
-  checkBox.type = "checkBox";
-  checkBox.defaultChecked = item.completed;
-
-  addEventListener(checkBox, li, delBtn, editBtn, item);
-  drawCompletionElement(item.completed, li, item);
-
-  divToDoContainer.appendChild(li);
-  btnDivContainer.appendChild(delBtn);
-  btnDivContainer.appendChild(editBtn);
-  divToDoContainer.appendChild(createdAt);
+  return formattedDateTime;
 }
 
 function addEventListener(checkBox, li, delBtn, editBtn, item) {
@@ -110,8 +118,8 @@ function addEventListener(checkBox, li, delBtn, editBtn, item) {
 function drawCompletionElement(isChecked, li, item) {
   const del = document.createElement("del");
   if (isChecked) {
-    del.innerText = item.value;
-    li.innerText = "";
+    del.textContent = item.value;
+    li.textContent = "";
     li.appendChild(del);
   } else {
     li.textContent = item.value;
