@@ -167,7 +167,7 @@ function addToDo() {
     createdAt: new Date().toISOString(),
   };
   if (currentToDos !== null) {
-    todoItems = [...currentToDos, newItem];
+    todoItems = [...(currentToDos ?? []), newItem];
   } else {
     todoItems = [newItem];
   }
