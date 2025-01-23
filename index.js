@@ -23,7 +23,7 @@ function loadToDos() {
 
 function getToDos() {
   const items = JSON.parse(localStorage.getItem("todos"));
-  return items?.sort((a, b) => a.createdAt - b.createdAt);
+  return items?.sort((a, b) => a.createdAt - b.createdAt) ?? [];
 }
 function addToItem(item) {
   const div = document.createElement("div");
@@ -167,7 +167,7 @@ function addToDo() {
     createdAt: new Date().toISOString(),
   };
   if (currentToDos !== null) {
-    todoItems = [...(currentToDos ?? []), newItem];
+    todoItems = [...currentToDos, newItem];
   } else {
     todoItems = [newItem];
   }
