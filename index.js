@@ -34,7 +34,6 @@ function addToItem(item) {
   const delBtn = document.createElement("button");
   const editBtn = document.createElement("button");
   const checkBox = document.createElement("input");
-  const del = document.createElement("del");
   const createdAt = document.createElement("p");
 
   div.setAttribute("id", item.id);
@@ -89,34 +88,35 @@ function addToItem(item) {
   checkBox.type = "checkBox";
   checkBox.defaultChecked = item.completed;
 
-  checkBox.addEventListener("change", (value) => {
-    const isChecked = value.target.checked;
-    setCompletedTodo(isChecked, item.id);
-    if (isChecked) {
-      del.innerText = item.value;
-      li.innerText = "";
-      li.appendChild(del);
-    } else {
-      li.innerHTML = "";
-      li.textContent = item.value;
-    }
-  });
-  delBtn.addEventListener("click", () => deleteToDo(item.id));
-  editBtn.addEventListener("click", () => editToDo(item));
+  addEventListener(checkBox, li, delBtn, editBtn, item);
 
-  if (item.completed) {
-    const del = document.createElement("del");
-    del.innerText = item.value;
-    li.innerText = "";
-    li.appendChild(del);
-  } else {
-    li.innerHTML = "";
-    li.textContent = item.value;
-  }
+  drawCompletionElement(item.completed, li, item);
+
   divToDoContainer.appendChild(li);
   btnDivContainer.appendChild(delBtn);
   btnDivContainer.appendChild(editBtn);
   divToDoContainer.appendChild(createdAt);
+}
+
+function addEventListener(checkBox, li, delBtn, editBtn, item) {
+  checkBox.addEventListener("change", (value) => {
+    const isChecked = value.target.checked;
+    setCompletedTodo(isChecked, item.id);
+    drawCompletionElement(isChecked, li, item);
+  });
+  delBtn.addEventListener("click", () => deleteToDo(item.id));
+  editBtn.addEventListener("click", () => editToDo(item));
+}
+
+function drawCompletionElement(isChecked, li, item) {
+  const del = document.createElement("del");
+  if (isChecked) {
+    del.innerText = item.value;
+    li.innerText = "";
+    li.appendChild(del);
+  } else {
+    li.textContent = item.value;
+  }
 }
 
 function setCompletedTodo(checked, id) {
