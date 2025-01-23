@@ -89,7 +89,6 @@ function addToItem(item) {
   checkBox.defaultChecked = item.completed;
 
   addEventListener(checkBox, li, delBtn, editBtn, item);
-
   drawCompletionElement(item.completed, li, item);
 
   divToDoContainer.appendChild(li);
