@@ -5,8 +5,14 @@ const list = document.querySelector(".list");
 const saveBtn = document.querySelector(".save-btn");
 const updateBtn = document.querySelector(".update-btn");
 const taskLeft = document.getElementById("tasks-left");
+const date = document.getElementById("time");
 
-window.onload = () => toDoText.focus();
+document.addEventListener("DOMContentLoaded", () => {
+  toDoText.focus();
+  document
+    .querySelector("form")
+    .addEventListener("submit", (e) => e.preventDefault());
+});
 
 loadToDos();
 getActiveCount();
@@ -35,6 +41,7 @@ function addToItem(item) {
   const editBtn = document.createElement("button");
   const checkBox = document.createElement("input");
   const createdAt = document.createElement("p");
+  const dueOn = document.createElement("p");
 
   div.setAttribute("id", item.id);
 
@@ -49,8 +56,16 @@ function addToItem(item) {
   delBtn.innerText = "✖";
   editBtn.innerText = "✎";
 
-  let formattedDateTime = formatDate(item.createdAt);
-  createdAt.innerText = "Created At: " + formattedDateTime;
+  createdAt.innerText = `Created At: ${formatDate(item.createdAt)}`;
+  dueOn.innerText = `Due On: ${formatDate(item.dueOn)}`;
+
+  var dueOnDate = new Date(item.dueOn);
+  var currDate = new Date();
+  let isValidDueDate = currDate <= dueOnDate == true;
+
+  if (!isValidDueDate) {
+    dueOn.style.color = "red";
+  }
 
   checkBox.name = `${item.id}`;
   checkBox.type = "checkBox";
@@ -62,6 +77,7 @@ function addToItem(item) {
   divToDoContainer.appendChild(li);
   btnDivContainer.appendChild(delBtn);
   btnDivContainer.appendChild(editBtn);
+  divToDoContainer.appendChild(dueOn);
   divToDoContainer.appendChild(createdAt);
 }
 
@@ -148,16 +164,24 @@ function deleteToDo(id) {
   showSaveBtn();
 }
 function editToDo(item) {
+  const dateValidationTxt = document.querySelector(".date-validation-text");
+  const validationTxt = document.querySelector(".validation-text");
   const items = getToDos();
   const itemToUpdate = items?.find((curr) => curr.id === item.id);
   toDoText.value = itemToUpdate.value;
   idTxt.value = item.id;
+  date.value = item.dueOn;
   isChecked.value = item.completed;
   showUpdateBtn();
+  removeElements([validationTxt, dateValidationTxt]);
 }
 function addToDo() {
   const value = toDoText.value;
+  const dateValue = date.value;
+
   validateInput(value);
+  validateDate(dateValue);
+
   const currentToDos = getToDos();
   let todoItems = [];
   const newItem = {
@@ -165,6 +189,7 @@ function addToDo() {
     value: value,
     completed: false,
     createdAt: new Date().toISOString(),
+    dueOn: dateValue,
   };
   if (currentToDos !== null) {
     todoItems = [...currentToDos, newItem];
@@ -173,28 +198,60 @@ function addToDo() {
   }
 
   setToDos(todoItems);
-  toDoText.value = "";
   addToItem(newItem);
   getActiveCount();
+  resetInput();
+}
+function resetInput() {
+  toDoText.value = "";
+  date.value = null;
   toDoText.focus();
 }
 function validateInput(value) {
   const validationTxt = document.querySelector(".validation-text");
   const validationText = document.createElement("span");
+
   if (value === "") {
     if (validationTxt === null) {
       validationText.innerText = "To do value is Required!";
       validationText.classList.add("validation-text");
-
-      toDoText.insertAdjacentElement("afterend", validationText);
+      document
+        .querySelectorAll(".element-center .between")[0]
+        .insertAdjacentElement("afterend", validationText);
     }
     throw new Error("Missing To do Value.");
   } else {
-    if (validationTxt !== null) {
-      validationTxt.remove();
-    }
+    removeElements([validationTxt]);
   }
 }
+function validateDate(value) {
+  const dateValidationTxt = document.querySelector(".date-validation-text");
+  const validationText = document.createElement("span");
+  if (!isValidDate(value)) {
+    if (dateValidationTxt === null) {
+      validationText.innerText = "To do Date is Required!";
+      validationText.classList.add("validation-text");
+      document
+        .querySelectorAll(".element-center .between")[1]
+        .insertAdjacentElement("afterend", validationText);
+    }
+    throw new Error("Missing To do Date.");
+  } else {
+    removeElements([validationText]);
+  }
+}
+function removeElements(ele) {
+  ele.forEach((element) => {
+    if (element !== null) {
+      element.remove();
+    }
+  });
+}
+function isValidDate(value) {
+  const date = new Date(value);
+  return !isNaN(date);
+}
+
 function showUpdateBtn() {
   saveBtn.style.display = "none";
   updateBtn.style.display = "block";
@@ -202,7 +259,6 @@ function showUpdateBtn() {
 function showSaveBtn() {
   saveBtn.style.display = "block";
   updateBtn.style.display = "none";
-  toDoText.value = "";
 }
 function setToDos(todoItems) {
   localStorage.setItem("todos", JSON.stringify(todoItems));
@@ -210,15 +266,17 @@ function setToDos(todoItems) {
 
 function updateToDo() {
   validateInput(idTxt.value);
+  validateDate(date.value);
   const items = getToDos();
   const updatedItems = items.map((item) =>
     item.id === parseInt(idTxt.value)
-      ? { ...item, value: toDoText.value }
+      ? { ...item, value: toDoText.value, dueOn: date.value }
       : item
   );
   setToDos(updatedItems);
   showSaveBtn();
   loadToDos();
+  resetInput();
 }
 
 function getActiveCount() {

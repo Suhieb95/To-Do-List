@@ -24,14 +24,14 @@
     }
 }
 
-.validation-text {
+.validation-text,
+.date-validation-text {
     color: red;
     display: block;
     width: 100%;
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 5px;
-    margin-left: 6px;
+    margin-block: 10px;
 }
 
 .to-do-list-body {
@@ -48,31 +48,78 @@
             99,
             0.2) 0px 4px 8px 0px;
 
-    #to-do-value {
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        border-radius: 7px;
-        font-size: 16px;
-        padding: 8px 0;
-        padding-inline: 10px;
-        border: solid 0.5px rgb(0, 0, 0, 0.3);
-        background-color: #f9f9f9;
-        outline: none;
 
-        &::placeholder {
-            font-size: 14px;
+
+
+    form {
+        width: 100%;
+
+        label {
+            font-weight: 600;
+            font-size: 13px;
+            width: 15%;
         }
 
-        &:focus {
-            background-color: white;
-            outline: solid 2px #f1f1f1;
+        #to-do-value {
+            width: 85%;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            border-radius: 7px;
+            font-size: 16px;
+            padding-block: 6px;
+            padding-inline: 10px;
+            border: solid 0.5px rgb(0, 0, 0, 0.3);
+            background-color: #f9f9f9;
+            outline: none;
 
             &::placeholder {
-                opacity: 0;
+                font-size: 14px;
+            }
+
+            &:focus {
+                background-color: white;
+                outline: solid 2px #f1f1f1;
+
+                &::placeholder {
+                    opacity: 0;
+                }
+            }
+
+        }
+
+        .save-btn,
+        .update-btn {
+            width: 100%;
+            margin-inline: auto;
+            margin-bottom: 25px;
+            margin-top: 5px;
+            padding: 6px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            &:hover {
+                transform: scale(1.03);
+                box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
             }
         }
 
+
+        input[type=datetime-local] {
+            border: 2px solid #f3f3f3;
+            outline: none;
+            width: 85%;
+            display: inline;
+            border-radius: 10px;
+            padding-block: 6px;
+            padding-inline: 10px;
+        }
     }
 
     p {
@@ -84,28 +131,7 @@
         padding: 0 1px;
     }
 
-    .save-btn,
-    .update-btn {
-        width: 100%;
-        margin-inline: auto;
-        margin-bottom: 25px;
-        margin-top: 5px;
-        padding: 6px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        outline: none;
-        background-color: black;
-        color: white;
-        font-weight: bold;
-        transition: transform 0.2s, box-shadow 0.2s;
 
-        &:hover {
-            transform: scale(1.03);
-            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-        }
-    }
 
     .to-do-item {
         border: solid 2.5px black;

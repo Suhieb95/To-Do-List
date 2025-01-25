@@ -23,14 +23,37 @@
           You have 0 Tasks Left!
         </h3>
         <div class="element-center flex-col">
-          <input hidden id="to-do-id" readonly type="number" />
-          <input hidden id="to-do-checked" readonly type="checkbox" />
-          <input placeholder="To do Task Name" id="to-do-value" type="text" />
+          <form>
+            <input hidden id="to-do-id" readonly type="number" />
+            <input hidden id="to-do-checked" readonly type="checkbox" />
+            <div value class="element-center between">
+              <label for="to-do-value">Value: </label>
+              <input
+                placeholder="To do Task Name"
+                id="to-do-value"
+                type="text"
+              />
+            </div>
+            <div class="element-center between">
+              <label for="time">Due On: </label>
+              <input
+                id="time"
+                type="datetime-local"
+              />
+            </div>
+            <button type="submit" class="save-btn" onclick="addToDo()">
+              Add
+            </button>
+            <button
+              style="display: none"
+              class="update-btn"
+              type="submit"
+              onclick="updateToDo()"
+            >
+              Update
+            </button>
+          </form>
         </div>
-        <button class="save-btn" onclick="addToDo()">Add</button>
-        <button style="display: none" class="update-btn" onclick="updateToDo()">
-          Update
-        </button>
         <ul class="list"></ul>
       </div>
     </div>
