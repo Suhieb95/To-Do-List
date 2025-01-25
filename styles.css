@@ -245,3 +245,7 @@
 .flex {
     display: flex;
 }
+
+.w-full {
+    width: 100% !important;
+}
