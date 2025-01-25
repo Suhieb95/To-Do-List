@@ -43,6 +43,7 @@ function addToItem(item) {
   const checkBox = document.createElement("input");
   const createdAt = document.createElement("p");
   const dueOn = document.createElement("p");
+  const editIco = editIcon();
 
   div.setAttribute("id", item.id);
 
@@ -55,7 +56,6 @@ function addToItem(item) {
   addClassLists(div, divContainer, btnDivContainer, divToDoContainer);
 
   delBtn.innerText = "✖";
-  editBtn.innerText = "✎";
 
   createdAt.innerText = `Created At: ${formatDate(item.createdAt)}`;
   dueOn.innerText = `Due On: ${formatDate(item.dueOn)}`;
@@ -76,7 +76,7 @@ function addToItem(item) {
   checkBox.type = "checkBox";
   checkBox.defaultChecked = item.completed;
 
-  addEventListener(checkBox, li, delBtn, editBtn, item, div);
+  addEventListener(checkBox, li, delBtn, editBtn, item);
   drawCompletionElement(item.completed, li, item);
 
   divToDoContainer.appendChild(li);
@@ -84,6 +84,7 @@ function addToItem(item) {
   btnDivContainer.appendChild(editBtn);
   divToDoContainer.appendChild(dueOn);
   divToDoContainer.appendChild(createdAt);
+  editBtn.appendChild(editIco);
 }
 
 function addClassLists(div, divContainer, btnDivContainer, divToDoContainer) {
@@ -126,7 +127,7 @@ function formatDate(item) {
   return formattedDateTime;
 }
 
-function addEventListener(checkBox, li, delBtn, editBtn, item, div) {
+function addEventListener(checkBox, li, delBtn, editBtn, item) {
   checkBox.addEventListener("change", (value) => {
     const isChecked = value.target.checked;
     setCompletedTodo(isChecked, item.id);
@@ -300,4 +301,17 @@ function getActiveCount() {
   const count = items.filter((item) => item.completed === false);
   taskLeft.innerText = `You have ${count.length} Tasks Left!`;
 }
+function editIcon() {
+  const editIco = document.createElement("img");
 
+  editIco.src = "./pen-solid.svg";
+  editIco.title = "Edit";
+  editIco.alt = "Edit";
+  editIco.loading = "eager";
+  editIco.type = "image/svg+xml";
+  editIco.width = "16";
+  editIco.height = "16";
+  editIco.style.marginTop = "7px";
+
+  return editIco;
+}
