@@ -62,10 +62,10 @@ function addToItem(item) {
 
   var dueOnDate = new Date(item.dueOn);
   var currDate = new Date();
-  let isValidDueDate = dueOnDate > currDate;
+  let isPastDueDate = dueOnDate > currDate;
   let isDueOnToday = currDate.getDate() === dueOnDate.getDate();
 
-  if (!isValidDueDate) {
+  if (!isPastDueDate) {
     dueOn.style.color = "red";
     if (isDueOnToday) {
       dueOn.innerText = "Due: Today";
