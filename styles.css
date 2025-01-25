@@ -138,6 +138,21 @@
         margin-bottom: 10px;
         padding: 20px 0;
         border-radius: 7px;
+        transition: background-color 0.5s;
+        color: black;
+
+        &[completed] {
+            background-color: #FFB6C1;
+
+            p {
+                color: black !important;
+            }
+
+            del {
+                font-size: 15px;
+                color: white !important;
+            }
+        }
     }
 
     .btn-container {
@@ -170,9 +185,17 @@
         }
 
         p {
-            font-size: 10px;
+
             margin-top: 7px;
             font-weight: 600;
+
+            &:first-child {
+                font-size: 12px;
+            }
+
+            &:last-child {
+                font-size: 10px;
+            }
         }
 
         del {
@@ -180,7 +203,7 @@
         }
 
         input {
-            margin-top: 9px;
+            margin-top: 20px;
             height: 17px;
             width: 17px;
 

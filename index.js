@@ -23,6 +23,7 @@ function loadToDos() {
   if (items !== null) {
     items?.forEach((item) => {
       addToItem(item);
+      setCompletedDiv(item.id, item.completed);
     });
   }
 }
@@ -61,17 +62,21 @@ function addToItem(item) {
 
   var dueOnDate = new Date(item.dueOn);
   var currDate = new Date();
-  let isValidDueDate = currDate <= dueOnDate == true;
+  let isValidDueDate = currDate < dueOnDate == true;
+  let isDueOnToday = (currDate.getDate() === dueOnDate.getDate()) == true;
 
   if (!isValidDueDate) {
     dueOn.style.color = "red";
+    if (isDueOnToday) {
+      dueOn.innerText = "Due: Today";
+    }
   }
 
   checkBox.name = `${item.id}`;
   checkBox.type = "checkBox";
   checkBox.defaultChecked = item.completed;
 
-  addEventListener(checkBox, li, delBtn, editBtn, item);
+  addEventListener(checkBox, li, delBtn, editBtn, item, div);
   drawCompletionElement(item.completed, li, item);
 
   divToDoContainer.appendChild(li);
@@ -121,7 +126,7 @@ function formatDate(item) {
   return formattedDateTime;
 }
 
-function addEventListener(checkBox, li, delBtn, editBtn, item) {
+function addEventListener(checkBox, li, delBtn, editBtn, item, div) {
   checkBox.addEventListener("change", (value) => {
     const isChecked = value.target.checked;
     setCompletedTodo(isChecked, item.id);
@@ -149,7 +154,18 @@ function setCompletedTodo(checked, id) {
   });
   setToDos(updatedItems);
   getActiveCount();
+  setCompletedDiv(id, checked);
 }
+function setCompletedDiv(id, checked) {
+  const toDo = document.querySelectorAll(".to-do-item");
+  const element = Array.from(toDo).find((ele) => ele.getAttribute("id") == id);
+  if (checked) {
+    element.setAttribute("completed", "");
+  } else {
+    element.removeAttribute("completed");
+  }
+}
+
 function deleteToDo(id) {
   const items = getToDos();
   const updatedItems = items?.filter((item) => item.id !== id);
