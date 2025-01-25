@@ -62,8 +62,8 @@ function addToItem(item) {
 
   var dueOnDate = new Date(item.dueOn);
   var currDate = new Date();
-  let isValidDueDate = currDate < dueOnDate == true;
-  let isDueOnToday = (currDate.getDate() === dueOnDate.getDate()) == true;
+  let isValidDueDate = dueOnDate > currDate;
+  let isDueOnToday = currDate.getDate() === dueOnDate.getDate();
 
   if (!isValidDueDate) {
     dueOn.style.color = "red";
