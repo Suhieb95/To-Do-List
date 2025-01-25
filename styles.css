@@ -61,6 +61,7 @@
         }
 
         #to-do-value {
+            border: 2px solid #f3f3f3;
             width: 85%;
             margin-top: 10px;
             margin-bottom: 5px;
@@ -68,17 +69,16 @@
             font-size: 16px;
             padding-block: 6px;
             padding-inline: 10px;
-            border: solid 0.5px rgb(0, 0, 0, 0.3);
-            background-color: #f9f9f9;
             outline: none;
+            transition: box-shadow 0.3s, border-color 0.3s;
 
             &::placeholder {
                 font-size: 14px;
             }
 
             &:focus {
-                background-color: white;
-                outline: solid 2px #f1f1f1;
+                border-color: #333;
+                box-shadow: 0 0 5px rgba(0, 87, 255, 0.5);
 
                 &::placeholder {
                     opacity: 0;
@@ -110,15 +110,20 @@
             }
         }
 
-
         input[type=datetime-local] {
             border: 2px solid #f3f3f3;
-            outline: none;
             width: 85%;
-            display: inline;
             border-radius: 10px;
             padding-block: 6px;
             padding-inline: 10px;
+            color: #333;
+            outline: none;
+            transition: box-shadow 0.3s, border-color 0.3s;
+
+            &:focus {
+                border-color: #333;
+                box-shadow: 0 0 5px rgba(0, 87, 255, 0.5);
+            }
         }
     }
 

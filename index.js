@@ -300,3 +300,4 @@ function getActiveCount() {
   const count = items.filter((item) => item.completed === false);
   taskLeft.innerText = `You have ${count.length} Tasks Left!`;
 }
+
