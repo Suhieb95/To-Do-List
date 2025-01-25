@@ -94,7 +94,7 @@
             margin-bottom: 25px;
             margin-top: 5px;
             padding: 6px;
-            border-radius: 10px;
+            padding-inline: 10px;
             border: none;
             cursor: pointer;
             font-size: 16px;
@@ -114,9 +114,10 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+            height: 34px;
             border: 2px solid #f3f3f3;
             width: 85%;
-            border-radius: 10px;
+            border-radius: 7px;
             padding-block: 6px;
             background-color: white;
             padding-inline: 10px;
