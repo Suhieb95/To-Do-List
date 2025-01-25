@@ -6,6 +6,9 @@
     box-sizing: border-box;
     font-family: "Roboto", serif;
     font-optical-sizing: auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .container {
@@ -111,9 +114,6 @@
         }
 
         #time {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
             height: 34px;
             border: 2px solid #f3f3f3;
             width: 85%;
