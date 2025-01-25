@@ -110,7 +110,7 @@
             }
         }
 
-        input[type=datetime-local] {
+        #time {
             border: 2px solid #f3f3f3;
             width: 85%;
             border-radius: 10px;
