@@ -199,35 +199,34 @@ function addToDo() {
   const value = toDoText.value;
   const dateValue = date.value;
 
-  validateInput(value);
-  validateDate(dateValue);
+  if (isValidTextInput(value) && isValidDateInput(dateValue)) {
+    const currentToDos = getToDos();
+    let todoItems = [];
+    const newItem = {
+      id: parseInt(Math.random() * 10000),
+      value: value,
+      completed: false,
+      createdAt: new Date().toISOString(),
+      dueOn: dateValue,
+    };
+    if (currentToDos !== null) {
+      todoItems = [...currentToDos, newItem];
+    } else {
+      todoItems = [newItem];
+    }
 
-  const currentToDos = getToDos();
-  let todoItems = [];
-  const newItem = {
-    id: parseInt(Math.random() * 10000),
-    value: value,
-    completed: false,
-    createdAt: new Date().toISOString(),
-    dueOn: dateValue,
-  };
-  if (currentToDos !== null) {
-    todoItems = [...currentToDos, newItem];
-  } else {
-    todoItems = [newItem];
+    setToDos(todoItems);
+    addToItem(newItem);
+    getActiveCount();
+    resetInput();
   }
-
-  setToDos(todoItems);
-  addToItem(newItem);
-  getActiveCount();
-  resetInput();
 }
 function resetInput() {
   toDoText.value = "";
   date.value = null;
   toDoText.focus();
 }
-function validateInput(value) {
+function isValidTextInput(value) {
   const validationTxt = document.querySelector(".validation-text");
   const validationText = document.createElement("span");
 
@@ -239,12 +238,13 @@ function validateInput(value) {
         .querySelectorAll(".element-center .between")[0]
         .insertAdjacentElement("afterend", validationText);
     }
-    throw new Error("Missing To do Value.");
+    return false;
   } else {
     removeElements([validationTxt]);
   }
+  return true;
 }
-function validateDate(value) {
+function isValidDateInput(value) {
   const dateValidationTxt = document.querySelector(".date-validation-text");
   const validationText = document.createElement("span");
   if (!isValidDate(value)) {
@@ -255,10 +255,11 @@ function validateDate(value) {
         .querySelectorAll(".element-center .between")[1]
         .insertAdjacentElement("afterend", validationText);
     }
-    throw new Error("Missing To do Date.");
+    return false;
   } else {
     removeElements([validationText]);
   }
+  return true;
 }
 function removeElements(ele) {
   ele.forEach((element) => {
@@ -285,18 +286,18 @@ function setToDos(todoItems) {
 }
 
 function updateToDo() {
-  validateInput(idTxt.value);
-  validateDate(date.value);
-  const items = getToDos();
-  const updatedItems = items.map((item) =>
-    item.id === parseInt(idTxt.value)
-      ? { ...item, value: toDoText.value, dueOn: date.value }
-      : item
-  );
-  setToDos(updatedItems);
-  showSaveBtn();
-  loadToDos();
-  resetInput();
+  if (isValidTextInput(idTxt.value) && isValidDateInput(date.value)) {
+    const items = getToDos();
+    const updatedItems = items.map((item) =>
+      item.id === parseInt(idTxt.value)
+        ? { ...item, value: toDoText.value, dueOn: date.value }
+        : item
+    );
+    setToDos(updatedItems);
+    showSaveBtn();
+    loadToDos();
+    resetInput();
+  }
 }
 
 function getActiveCount() {
