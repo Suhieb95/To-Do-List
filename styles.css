@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", serif;
+    scroll-behavior: smooth;
     font-optical-sizing: auto;
 }
 
@@ -224,8 +225,11 @@ input {
         height: 446px;
         scrollbar-width: thin;
         scrollbar-color: black transparent;
-        scroll-behavior: smooth;
-        padding-right: 5px !important;
+        padding-right: 7px !important;
+
+        @media (max-width:700px) {
+            padding-right: 10px !important;
+        }
     }
 
 
