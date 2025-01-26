@@ -6,6 +6,13 @@
     box-sizing: border-box;
     font-family: "Roboto", serif;
     font-optical-sizing: auto;
+
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
 }
 
 input {
@@ -46,6 +53,7 @@ input {
     max-width: 400px;
     width: 100%;
     margin-inline: auto;
+    position: relative;
     border-radius: 5px;
     height: 100%;
     padding: 15px;
@@ -56,7 +64,81 @@ input {
             99,
             0.2) 0px 4px 8px 0px;
 
+    .overlay {
+        height: 100%;
+        width: 100%;
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateY(-20px);
+        z-index: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+    }
 
+    .confirmation-modal {
+        height: 100%;
+        max-height: max-content;
+        width: 100%;
+        max-width: 400px;
+        background-color: white;
+        box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+        border-radius: 15px;
+        z-index: 999;
+        position: relative;
+        padding: 20px;
+
+        >button {
+            position: absolute;
+            font-size: 18px;
+            color: grey;
+            top: 15px;
+            right: 22px;
+        }
+
+        div {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-items: start;
+
+            button {
+                padding-inline: 12px;
+                padding-block: 8px;
+                color: grey;
+                font-weight: 700;
+
+                &:first-child {
+                    background-color: #cf3030;
+                    border-radius: 5px;
+                    color: white;
+                }
+            }
+        }
+
+
+
+        hr {
+            background-color: rgb(0, 0, 0, 0.3);
+            margin-block: 10px;
+            height: 1.5px;
+            border: none;
+        }
+
+        h1 {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
 
 
     form {
@@ -104,8 +186,6 @@ input {
             padding: 6px;
             border-radius: 5px;
             padding-inline: 10px;
-            border: none;
-            cursor: pointer;
             font-size: 16px;
             outline: none;
             background-color: black;
@@ -176,10 +256,7 @@ input {
         margin-bottom: 15px;
 
         button {
-            background-color: transparent;
-            border: none;
             outline: none;
-            cursor: pointer;
             font-size: 20px;
             padding: 5px;
             transition: background-color 0.2s, border-radius 0.2s;

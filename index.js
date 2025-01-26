@@ -133,7 +133,7 @@ function addEventListener(checkBox, li, delBtn, editBtn, item) {
     setCompletedTodo(isChecked, item.id);
     drawCompletionElement(isChecked, li, item);
   });
-  delBtn.addEventListener("click", () => deleteToDo(item.id));
+  delBtn.addEventListener("click", () => showConfirmDelete(item.id));
   editBtn.addEventListener("click", () => editToDo(item));
 }
 
@@ -314,4 +314,46 @@ function editIcon() {
   editIco.style.marginTop = "7px";
 
   return editIco;
+}
+function showConfirmDelete(id) {
+  const body = document.querySelector(".to-do-list-body");
+  const modalDiv = document.createElement("div");
+  const overlay = document.createElement("div");
+  const header = document.createElement("h1");
+  const content = document.createElement("h2");
+  const btnDiv = document.createElement("div");
+  const delBtn = document.createElement("button");
+  const cancelBtn = document.createElement("button");
+  const close = document.createElement("button");
+
+  header.innerText = "Delete To Do Item?";
+  content.innerText =
+    "You are permanetly deleting the selected to do task. This can't be undone.";
+  delBtn.innerText = "Delete";
+  cancelBtn.innerText = "Cancel";
+  close.innerText = "✖";
+
+  modalDiv.classList.add("confirmation-modal");
+  overlay.classList.add("overlay");
+
+  body.appendChild(overlay);
+  overlay.appendChild(modalDiv);
+  modalDiv.appendChild(close);
+
+  modalDiv.appendChild(header);
+  modalDiv.appendChild(document.createElement("hr"));
+  modalDiv.appendChild(content);
+  modalDiv.appendChild(btnDiv);
+  btnDiv.appendChild(delBtn);
+  btnDiv.appendChild(cancelBtn);
+
+  [cancelBtn, close, delBtn].forEach((ele) =>
+    ele.addEventListener("click", () => {
+      if (ele.innerText === "Delete") {
+        deleteToDo(id);
+      }
+      overlay.replaceChildren();
+      overlay.remove();
+    })
+  );
 }
