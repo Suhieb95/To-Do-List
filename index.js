@@ -7,15 +7,17 @@ const updateBtn = document.querySelector(".update-btn");
 const taskLeft = document.getElementById("tasks-left");
 const date = document.getElementById("time");
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", formLoad);
+
+loadToDos();
+getActiveCount();
+
+function formLoad() {
   toDoText.focus();
   document
     .querySelector("form")
     .addEventListener("submit", (e) => e.preventDefault());
-});
-
-loadToDos();
-getActiveCount();
+}
 
 function loadToDos() {
   list.replaceChildren();
@@ -72,10 +74,9 @@ function addToItem(item) {
     }
   }
 
-  checkBox.name = `${item.id}`;
+  checkBox.value = `${item.id}`;
   checkBox.type = "checkBox";
   checkBox.defaultChecked = item.completed;
-
   addEventListener(checkBox, li, delBtn, editBtn, item);
   drawCompletionElement(item.completed, li, item);
 

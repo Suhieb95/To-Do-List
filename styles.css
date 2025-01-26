@@ -51,12 +51,12 @@ input {
 .to-do-list-body {
     max-width: 400px;
     width: 100%;
+    overflow: clip;
     margin-inline: auto;
     position: relative;
     border-radius: 5px;
     height: 100%;
     padding: 15px;
-    min-height: 600px;
     background-color: white;
     box-shadow: rgba(99,
             99,
@@ -77,7 +77,7 @@ input {
         .confirmation-modal {
             height: 100%;
             transform: translateY(-50px);
-            max-height: max-content;
+            max-height: 170px;
             width: 100%;
             max-width: 390px;
             background-color: white;
@@ -220,7 +220,12 @@ input {
 
     .list {
         list-style: none;
-        padding: 0 1px;
+        overflow-y: auto;
+        height: 446px;
+        scrollbar-width: thin;
+        scrollbar-color: black transparent;
+        scroll-behavior: smooth;
+        padding-right: 5px !important;
     }
 
 

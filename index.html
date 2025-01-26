@@ -17,41 +17,44 @@
   <body>
     <div class="container">
       <div class="to-do-list-body flex flex-col">
-        <h1 style="font-size: 24px">To Do List</h1>
-        <h2 style="margin-top: 20px; font-size: 16px">My Tasks</h2>
-        <h3 id="tasks-left" style="margin-top: 10px; font-size: 14px">
-          You have 0 Tasks Left!
-        </h3>
+        <section class="w-full">
+          <h1 style="font-size: 24px">To Do List</h1>
+          <h2 style="margin-top: 20px; font-size: 16px">My Tasks</h2>
+          <h3 id="tasks-left" style="margin-top: 10px; font-size: 14px">
+            You have 0 Tasks Left!
+          </h3>
+        </section>
         <div class="element-center flex-col">
-          <form>
-            <input hidden id="to-do-id" readonly type="number" />
-            <input hidden id="to-do-checked" readonly type="checkbox" />
-            <div value class="element-center between">
-              <label for="to-do-value">Value: </label>
-              <input
-                placeholder="To do Task Name"
-                id="to-do-value"
-                type="text"
-              />
-            </div>
-            <div class="element-center between">
-              <label for="time">Due On: </label>
-              <input id="time" type="datetime-local" />
-            </div>
-            <button type="submit" class="save-btn" onclick="addToDo()">
-              Add
-            </button>
-            <button
-              style="display: none"
-              class="update-btn"
-              type="submit"
-              onclick="updateToDo()"
-            >
-              Update
-            </button>
-          </form>
+          <section class="w-full">
+            <form>
+              <input hidden id="to-do-id" readonly type="number" />
+              <div value class="element-center between">
+                <label for="to-do-value">Value: </label>
+                <input
+                  placeholder="To do Task Name"
+                  id="to-do-value"
+                  type="text"
+                />
+              </div>
+              <div class="element-center between">
+                <label for="time">Due On: </label>
+                <input id="time" type="datetime-local" />
+              </div>
+              <button type="submit" class="save-btn" onclick="addToDo()">
+                Add
+              </button>
+              <button
+                style="display: none"
+                class="update-btn"
+                type="submit"
+                onclick="updateToDo()"
+              >
+                Update
+              </button>
+            </form>
+          </section>
         </div>
-        <ul class="list"></ul>
+        <section class="w-full"><ul class="list"></ul></section>
       </div>
     </div>
     <script src="index.js" defer></script>
