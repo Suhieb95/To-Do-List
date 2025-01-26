@@ -356,7 +356,7 @@ function showConfirmDelete(id) {
     }
   });
 
-  Array.from([cancelBtn, close, delBtn]).forEach((ele) =>
+  [cancelBtn, close, delBtn].forEach((ele) =>
     ele.addEventListener("click", () => {
       if (ele.innerText === "Delete") {
         deleteToDo(id);
