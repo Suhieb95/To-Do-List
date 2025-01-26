@@ -10,7 +10,6 @@ const date = document.getElementById("time");
 document.addEventListener("DOMContentLoaded", formLoad);
 
 loadToDos();
-getActiveCount();
 
 function formLoad() {
   toDoText.focus();
@@ -34,8 +33,17 @@ function loadToDos() {
 
 function getToDos() {
   const items = JSON.parse(localStorage.getItem("todos"));
-  return items?.sort((a, b) => a.createdAt - b.createdAt) ?? [];
+  getActiveCount(items);
+  return (
+    items?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)) ?? []
+  );
 }
+
+function getActiveCount(items) {
+  const count = items?.filter((item) => item.completed === false);
+  taskLeft.innerText = `You have ${count?.length ?? 0} Tasks Left!`;
+}
+
 function addToItem(item) {
   const div = document.createElement("div");
   const divContainer = document.createElement("div");
@@ -157,7 +165,7 @@ function setCompletedTodo(checked, id) {
     return item.id === id ? { ...item, completed: checked } : item;
   });
   setToDos(updatedItems);
-  getActiveCount();
+  getActiveCount(updatedItems);
   setCompletedDiv(id, checked);
 }
 function setCompletedDiv(id, checked) {
@@ -180,7 +188,7 @@ function deleteToDo(id) {
       list.removeChild(ele);
     }
   });
-  getActiveCount();
+  getActiveCount(updatedItems);
   showSaveBtn();
 }
 function editToDo(item) {
@@ -217,7 +225,7 @@ function addToDo() {
 
     setToDos(todoItems);
     addToItem(newItem);
-    getActiveCount();
+    getActiveCount(todoItems);
     resetInput();
   }
 }
@@ -306,11 +314,6 @@ function updateToDo() {
 const isValidInputs = (value, dateValue) =>
   isValidTextInput(value) && isValidDateInput(dateValue);
 
-function getActiveCount() {
-  const items = getToDos();
-  const count = items.filter((item) => item.completed === false);
-  taskLeft.innerText = `You have ${count.length} Tasks Left!`;
-}
 function editIcon() {
   const editIco = document.createElement("img");
 
