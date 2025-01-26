@@ -199,7 +199,7 @@ function addToDo() {
   const value = toDoText.value;
   const dateValue = date.value;
 
-  if (isValidTextInput(value) && isValidDateInput(dateValue)) {
+  if (isValidInputs(value, dateValue)) {
     const currentToDos = getToDos();
     let todoItems = [];
     const newItem = {
@@ -286,7 +286,10 @@ function setToDos(todoItems) {
 }
 
 function updateToDo() {
-  if (isValidTextInput(idTxt.value) && isValidDateInput(date.value)) {
+  const value = toDoText.value;
+  const dateValue = date.value;
+
+  if (isValidInputs(value, dateValue)) {
     const items = getToDos();
     const updatedItems = items.map((item) =>
       item.id === parseInt(idTxt.value)
@@ -299,6 +302,9 @@ function updateToDo() {
     resetInput();
   }
 }
+
+const isValidInputs = (value, dateValue) =>
+  isValidTextInput(value) && isValidDateInput(dateValue);
 
 function getActiveCount() {
   const items = getToDos();
