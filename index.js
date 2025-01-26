@@ -349,14 +349,24 @@ function showConfirmDelete(id) {
 
   document.body.style.overflow = "clip";
 
-  [cancelBtn, close, delBtn].forEach((ele) =>
+  overlay.addEventListener("click", (e) => {
+    const { target } = e;
+    if (target === overlay) {
+      removeModal(overlay);
+    }
+  });
+
+  Array.from([cancelBtn, close, delBtn]).forEach((ele) =>
     ele.addEventListener("click", () => {
       if (ele.innerText === "Delete") {
         deleteToDo(id);
       }
-      overlay.replaceChildren();
-      overlay.remove();
-      document.body.style.overflow = "auto";
+      removeModal(overlay);
     })
   );
+}
+function removeModal(overlay) {
+  overlay.replaceChildren();
+  overlay.remove();
+  document.body.style.overflow = "auto";
 }
