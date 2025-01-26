@@ -16,8 +16,10 @@ function formLoad() {
   toDoText.focus();
   document
     .querySelector("form")
-    .addEventListener("submit", (e) => e.preventDefault());
+    .addEventListener("submit", preventDefaultSubmit);
 }
+
+const preventDefaultSubmit = (e) => e.preventDefault();
 
 function loadToDos() {
   list.replaceChildren();
