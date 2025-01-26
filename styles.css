@@ -222,7 +222,7 @@ input {
     .list {
         list-style: none;
         overflow-y: auto;
-        height: 446px;
+        height: 340px;
         scrollbar-width: thin;
         scrollbar-color: black transparent;
         padding-right: 7px !important;
