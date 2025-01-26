@@ -6,7 +6,6 @@
     box-sizing: border-box;
     font-family: "Roboto", serif;
     font-optical-sizing: auto;
-
 }
 
 button {
@@ -67,29 +66,27 @@ input {
     .overlay {
         height: 100%;
         width: 100%;
-        background-color: transparent;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translateY(-20px);
+        position: fixed;
         z-index: 500;
         display: flex;
+        inset: 0;
         justify-content: center;
         align-items: center;
-        padding: 0 5px;
+        background-color: rgb(0, 0, 0, 0.3);
     }
 
     .confirmation-modal {
         height: 100%;
+        transform: translateY(-50px);
         max-height: max-content;
         width: 100%;
-        max-width: 400px;
+        max-width: 390px;
         background-color: white;
-        box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
         border-radius: 15px;
         z-index: 999;
         position: relative;
-        padding: 20px;
+        padding: 25px;
+        box-shadow: 8.0px 20px 20px hsl(0deg 0% 0% / 0.25);
 
         >button {
             position: absolute;

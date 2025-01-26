@@ -326,7 +326,7 @@ function showConfirmDelete(id) {
   const cancelBtn = document.createElement("button");
   const close = document.createElement("button");
 
-  header.innerText = "Delete To Do Item?";
+  header.innerText = "Delete to do item?";
   content.innerText =
     "You are permanetly deleting the selected to do task. This can't be undone.";
   delBtn.innerText = "Delete";
@@ -347,6 +347,8 @@ function showConfirmDelete(id) {
   btnDiv.appendChild(delBtn);
   btnDiv.appendChild(cancelBtn);
 
+  document.body.style.overflow = "clip";
+
   [cancelBtn, close, delBtn].forEach((ele) =>
     ele.addEventListener("click", () => {
       if (ele.innerText === "Delete") {
@@ -354,6 +356,7 @@ function showConfirmDelete(id) {
       }
       overlay.replaceChildren();
       overlay.remove();
+      document.body.style.overflow = "auto";
     })
   );
 }
