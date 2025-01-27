@@ -1,6 +1,5 @@
 const toDoText = document.getElementById("to-do-value");
 const idTxt = document.getElementById("to-do-id");
-const isChecked = document.getElementById("to-do-checked");
 const list = document.querySelector(".list");
 const saveBtn = document.querySelector(".save-btn");
 const updateBtn = document.querySelector(".update-btn");
@@ -16,6 +15,9 @@ function formLoad() {
   document
     .querySelector("form")
     .addEventListener("submit", preventDefaultSubmit);
+
+  saveBtn.onclick = () => addToDo();
+  updateBtn.onclick = () => updateToDo();
 }
 
 const preventDefaultSubmit = (e) => e.preventDefault();
@@ -199,7 +201,6 @@ function editToDo(item) {
   toDoText.value = itemToUpdate.value;
   idTxt.value = item.id;
   date.value = item.dueOn;
-  isChecked.value = item.completed;
   showUpdateBtn();
   removeElements([validationTxt, dateValidationTxt]);
 }
