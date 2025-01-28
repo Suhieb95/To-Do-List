@@ -2,9 +2,9 @@ const toDoText = document.getElementById("to-do-value");
 const idTxt = document.getElementById("to-do-id");
 const list = document.querySelector(".list");
 const saveBtn = document.querySelector(".save-btn");
-const updateBtn = document.querySelector(".update-btn");
 const taskLeft = document.getElementById("tasks-left");
 const date = document.getElementById("time");
+let isUpdate = false;
 
 document.addEventListener("DOMContentLoaded", formLoad);
 
@@ -12,15 +12,15 @@ loadToDos();
 
 function formLoad() {
   toDoText.focus();
-  document
-    .querySelector("form")
-    .addEventListener("submit", preventDefaultSubmit);
-
-  saveBtn.onclick = () => addToDo();
-  updateBtn.onclick = () => updateToDo();
+  document.forms[0].onsubmit = (e) => {
+    if (!isUpdate) {
+      addToDo();
+    } else {
+      updateToDo();
+    }
+    e.preventDefault();
+  };
 }
-
-const preventDefaultSubmit = (e) => e.preventDefault();
 
 function loadToDos() {
   list.replaceChildren();
@@ -191,7 +191,7 @@ function deleteToDo(id) {
     }
   });
   getActiveCount(updatedItems);
-  showSaveBtn();
+  setStatusSave();
 }
 function editToDo(item) {
   const dateValidationTxt = document.querySelector(".date-validation-text");
@@ -201,7 +201,7 @@ function editToDo(item) {
   toDoText.value = itemToUpdate.value;
   idTxt.value = item.id;
   date.value = item.dueOn;
-  showUpdateBtn();
+  setStatusUpdate();
   removeElements([validationTxt, dateValidationTxt]);
 }
 function addToDo() {
@@ -282,13 +282,13 @@ function isValidDate(value) {
   return !isNaN(date);
 }
 
-function showUpdateBtn() {
-  saveBtn.style.display = "none";
-  updateBtn.style.display = "block";
+function setStatusUpdate() {
+  saveBtn.innerText = "Update";
+  isUpdate = true;
 }
-function showSaveBtn() {
-  saveBtn.style.display = "block";
-  updateBtn.style.display = "none";
+function setStatusSave() {
+  saveBtn.innerText = "Save";
+  isUpdate = false;
 }
 function setToDos(todoItems) {
   localStorage.setItem("todos", JSON.stringify(todoItems));
@@ -306,7 +306,7 @@ function updateToDo() {
         : item
     );
     setToDos(updatedItems);
-    showSaveBtn();
+    setStatusSave();
     loadToDos();
     resetInput();
   }
